@@ -1,6 +1,6 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, Select
 from django.forms.widgets import TextInput
-from .models import Boulder
+from .models import Boulder, Tick
 
 
 class BoulderForm(ModelForm):
@@ -9,4 +9,17 @@ class BoulderForm(ModelForm):
         fields = '__all__'
         widgets = {
             'color': TextInput(attrs={'type': 'color'}),
+        }
+
+
+class ColorSelect(Select):
+    option_template_name = 'select_option.html'
+
+
+class TickForm(ModelForm):
+    class Meta:
+        model = Tick
+        fields = '__all__'
+        widgets = {
+            'boulder': ColorSelect(),
         }
